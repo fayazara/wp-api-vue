@@ -18,6 +18,10 @@ export default {
   components: {
     Navbar,
     Main
+  },
+  mounted () {
+    this.$store.dispatch('getCategories');
+    this.$store.dispatch('getTags');
   }
 };
 </script>

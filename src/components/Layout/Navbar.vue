@@ -2,7 +2,7 @@
   <v-app-bar app fixed elevate-on-scroll>
     <router-link to="/" tag="span" class="pointer">
       <v-toolbar-title to="/" class="headline">
-        <span class="font-weight-bold">Blog</span>
+        <span class="font-weight-bold">Trucaller Blog</span>
       </v-toolbar-title>
     </router-link>
     <v-spacer />
