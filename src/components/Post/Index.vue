@@ -9,6 +9,9 @@
           <p><time-ago :datetime="post.date" locale="en" long></time-ago></p>
         </div>
         <div v-html="post.content"></div>
+        <v-divider />
+        <p class="title mt-4">Related posts</p>
+        <RelatedPosts :posts="post.related_posts" />
       </div>
       <div
         v-else
@@ -34,6 +37,7 @@
 import { API } from '../../api';
 import Sidebar from './Sidebar';
 import TimeAgo from 'vue2-timeago';
+import RelatedPosts from './RelatedPosts';
 
 export default {
   props: ['id'],
@@ -44,10 +48,12 @@ export default {
   },
   components: {
     Sidebar,
-    TimeAgo
+    TimeAgo,
+    RelatedPosts
   },
   methods: {
     getPost() {
+      this.post = null;
       API.get(`posts/${this.id}?_embed`)
         .then(response => {
           this.post = {
@@ -67,11 +73,6 @@ export default {
   },
   mounted() {
     this.getPost();
-  },
-  watch: {
-    $route() {
-      this.getPost();
-    }
   }
 };
 </script>

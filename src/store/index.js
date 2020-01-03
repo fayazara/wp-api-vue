@@ -18,7 +18,6 @@ export default new Vuex.Store({
           id: post.id,
           date: post.date,
           title: post.title.rendered,
-          content: post.content.rendered,
           excerpt: post.excerpt.rendered,
           author: post._embedded.author[0].name,
           featured_image: post._embedded['wp:featuredmedia'][0].link,
@@ -55,7 +54,7 @@ export default new Vuex.Store({
       }).then(response => {
         commit('SET_POSTS', response.data)
       }).catch(err => {
-        alert(`Something went wrong - ${err}. Please reload the page`);
+        console.log(`Something went wrong - ${err}. Please reload the page`);
       })
     },
     getCategories({ commit }) {
@@ -66,7 +65,7 @@ export default new Vuex.Store({
       }).then(response => {
         commit('SET_CATEGORIES', response.data)
       }).catch(err => {
-        alert(`Something went wrong - ${err}. Please reload the page`);
+        console.log(`Something went wrong - ${err}. Please reload the page`);
       })
     },
     getTags({ commit }) {
@@ -78,7 +77,7 @@ export default new Vuex.Store({
       }).then(response => {
         commit('SET_TAGS', response.data)
       }).catch(err => {
-        alert(`Something went wrong - ${err}. Please reload the page`);
+        console.log(`Something went wrong - ${err}. Please reload the page`);
       })
     },
   },
