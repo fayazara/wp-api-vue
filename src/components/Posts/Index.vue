@@ -1,6 +1,6 @@
 <template>
   <transition name="fade-transition" mode="out-in">
-    <div v-if="$store.state.posts.length > 0">
+    <div v-if="$store.state.posts.length > 0" key="1">
       <v-row>
         <v-col
           cols="12"
@@ -18,6 +18,7 @@
     </div>
     <div
       v-else
+      key="2"
       class="text-center d-flex justify-center align-center flex-column"
       style="height:100vh;"
     >
@@ -33,12 +34,12 @@
 </template>
 
 <script>
-import Post from './Post';
+import Post from '../Common/Post';
 export default {
   name: 'Posts',
   data() {
     return {
-      page: 0
+      page: 1
     };
   },
   methods: {
@@ -46,9 +47,6 @@ export default {
       this.page++;
       this.$store.dispatch('getAllPosts', this.page);
     }
-  },
-  created() {
-    this.getPosts();
   },
   components: {
     Post

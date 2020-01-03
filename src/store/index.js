@@ -9,7 +9,9 @@ export default new Vuex.Store({
     dark: false,
     posts: [],
     categories: [],
-    tags: []
+    tags: [],
+    posts_by_category: [],
+    posts_by_tag: []
   },
   mutations: {
     SET_POSTS(state, payload) {
@@ -26,7 +28,34 @@ export default new Vuex.Store({
         })
       })
     },
-
+    SET_POSTS_BY_CATEGORY(state, payload) {
+      payload.map(post => {
+        state.posts_by_category.push({
+          id: post.id,
+          date: post.date,
+          title: post.title.rendered,
+          content: post.content.rendered,
+          excerpt: post.excerpt.rendered,
+          author: post._embedded.author[0].name,
+          featured_image: post._embedded['wp:featuredmedia'][0].link,
+          related_posts: post['jetpack-related-posts']
+        })
+      })
+    },
+    SET_POSTS_BY_TAG(state, payload) {
+      payload.map(post => {
+        state.posts_by_tag.push({
+          id: post.id,
+          date: post.date,
+          title: post.title.rendered,
+          content: post.content.rendered,
+          excerpt: post.excerpt.rendered,
+          author: post._embedded.author[0].name,
+          featured_image: post._embedded['wp:featuredmedia'][0].link,
+          related_posts: post['jetpack-related-posts']
+        })
+      })
+    },
     SET_CATEGORIES(state, payload) {
       payload.map(category => {
         state.categories.push({
@@ -41,6 +70,7 @@ export default new Vuex.Store({
         state.tags.push({
           id: tag.id,
           name: tag.name,
+          count: tag.count
         })
       })
     },
@@ -72,10 +102,35 @@ export default new Vuex.Store({
     getTags({ commit }) {
       API.get('tags', {
         params: {
-          per_page: 30
+          orderby: 'count',
+          order: 'desc'
         },
       }).then(response => {
         commit('SET_TAGS', response.data)
+      }).catch(err => {
+        alert(`Something went wrong - ${err}. Please reload the page`);
+      })
+    },
+    getPostsByCategories({ commit }, id) {
+      API.get('posts?_embed', {
+        params: {
+          per_page: '25',
+          categories: id
+        },
+      }).then(response => {
+        commit('SET_POSTS_BY_CATEGORY', response.data)
+      }).catch(err => {
+        alert(`Something went wrong - ${err}. Please reload the page`);
+      })
+    },
+    getPostsByTag({ commit }, id) {
+      API.get('posts?_embed', {
+        params: {
+          per_page: '25',
+          tag: id
+        },
+      }).then(response => {
+        commit('SET_POSTS_BY_TAG', response.data)
       }).catch(err => {
         alert(`Something went wrong - ${err}. Please reload the page`);
       })

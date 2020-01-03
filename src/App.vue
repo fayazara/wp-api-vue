@@ -20,6 +20,7 @@ export default {
     Main
   },
   mounted () {
+    this.$store.dispatch('getAllPosts', 1);
     this.$store.dispatch('getCategories');
     this.$store.dispatch('getTags');
   }

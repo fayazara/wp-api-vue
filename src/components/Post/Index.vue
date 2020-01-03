@@ -46,10 +46,8 @@ export default {
     Sidebar,
     TimeAgo
   },
-  mounted() {
-    if (this.$store.state.posts.length > 0) {
-      this.post = this.$store.state.posts.find(post => post.id == this.id);
-    } else {
+  methods: {
+    getPost() {
       API.get(`posts/${this.id}?_embed`)
         .then(response => {
           this.post = {
@@ -65,6 +63,16 @@ export default {
         .catch(err => {
           alert(`Something went wrong - ${err}. Please reload the page`);
         });
+    }
+  },
+  mounted() {
+    console.log('mounted');
+    this.getPost();
+  },
+  watch: {
+    $route() {
+      console.log('route changed');
+      this.getPost();
     }
   }
 };

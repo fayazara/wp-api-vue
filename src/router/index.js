@@ -19,12 +19,14 @@ const routes = [
   {
     path: '/category/:id',
     name: 'category',
-    component: () => import('../views/Category.vue')
+    component: () => import('../views/Category.vue'),
+    props: true
   },
   {
     path: '/tag/:id',
     name: 'tag',
-    component: () => import('../views/Tag.vue')
+    component: () => import('../views/Tag.vue'),
+    props: true
   },
 ]
 
