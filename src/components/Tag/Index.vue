@@ -32,6 +32,7 @@
 </template>
 
 <script>
+import { API } from '../../api';
 import Post from '../Common/Post';
 export default {
   name: 'Posts',
