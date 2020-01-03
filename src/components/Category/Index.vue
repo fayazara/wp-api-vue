@@ -59,7 +59,7 @@ export default {
           });
         })
         .catch(err => {
-          alert(`Something went wrong - ${err}. Please reload the page`);
+          console.log(`Something went wrong - ${err}. Please reload the page`);
         });
     }
   },
