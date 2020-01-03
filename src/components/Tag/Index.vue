@@ -2,12 +2,12 @@
   <section>
     <p class="title my-4">Tag: {{ $route.query.title }}</p>
     <transition name="fade-transition" mode="out-in">
-      <v-row v-if="$store.state.posts_by_tag.length > 0" key="1">
+      <v-row v-if="posts.length > 0" key="1">
         <v-col
           cols="12"
           sm="3"
           md="4"
-          v-for="post in $store.state.posts_by_tag"
+          v-for="post in posts"
           :key="post.id"
         >
           <Post :post="post" />
@@ -36,10 +36,36 @@ import Post from '../Common/Post';
 export default {
   name: 'Posts',
   props: ['id'],
+  data() {
+    return {
+      posts: []
+    };
+  },
   methods: {
     getPosts() {
-      this.page++;
-      this.$store.dispatch('getPostsByTag', this.id);
+      API.get('posts?_embed', {
+        params: {
+          per_page: '25',
+          tags: this.id
+        }
+      })
+        .then(response => {
+          response.data.map(post => {
+            this.posts.push({
+              id: post.id,
+              date: post.date,
+              title: post.title.rendered,
+              content: post.content.rendered,
+              excerpt: post.excerpt.rendered,
+              author: post._embedded.author[0].name,
+              featured_image: post._embedded['wp:featuredmedia'][0].link,
+              related_posts: post['jetpack-related-posts']
+            });
+          });
+        })
+        .catch(err => {
+          alert(`Something went wrong - ${err}. Please reload the page`);
+        });
     }
   },
   components: {
@@ -47,11 +73,6 @@ export default {
   },
   mounted() {
     this.getPosts();
-  },
-  watch: {
-    $route() {
-      this.getPosts();
-    }
   }
 };
 </script>

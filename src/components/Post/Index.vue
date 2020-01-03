@@ -66,12 +66,10 @@ export default {
     }
   },
   mounted() {
-    console.log('mounted');
     this.getPost();
   },
   watch: {
     $route() {
-      console.log('route changed');
       this.getPost();
     }
   }
