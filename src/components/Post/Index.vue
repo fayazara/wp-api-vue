@@ -76,7 +76,7 @@ export default {
   },
   watch: {
     $route() {
-      window.reload();
+      window.location.reload();
     }
   }
 };
