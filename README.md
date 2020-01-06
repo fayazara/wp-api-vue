@@ -1,24 +1,22 @@
+
 # trucaller-blog
 
-## Project setup
+## Initial Project setup
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### Run development server
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
+### Build for production
 ```
 npm run build
 ```
 
-### Lints and fixes files
-```
-npm run lint
-```
+### Third party libratries used
+1. Axios for making HTTP requests - [Documentation](https://github.com/axios/axios)
+2. Vuetify framework - [Documentation](https://vuetifyjs.com/en/introduction/why-vuetify)
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
