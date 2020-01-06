@@ -73,6 +73,11 @@ export default {
   },
   mounted() {
     this.getPost();
+  },
+  watch: {
+    $route() {
+      window.reload();
+    }
   }
 };
 </script>
